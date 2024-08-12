@@ -75,6 +75,17 @@ public class ListaSE{
         }
     }
 
+    public boolean exists(int v) {
+        if(empty()){return false;}
+        else{
+            Cell aux = first;
+            while(aux != null && aux.getValue() != v){
+                aux = aux.getNext();
+            }
+            return true;
+        }
+    }
+
     public boolean removeAtStart() {
         if(empty()){return false;}
         else{
@@ -130,6 +141,38 @@ public class ListaSE{
             aux.setNext(aux.getNext().getNext());
             return true;
         }
+    }
+
+    public void assemble(ListaSE list){ //loop infinito porque naosei
+        Cell aux = list.first;
+        while(aux!=null){
+            Cell c = new Cell(aux.getValue());
+            insertAtStart(c);
+            aux = aux.next;
+        }
+    }
+
+    public void assembleOrdered(ListaSE list){ //loop infinito porque naosei
+        Cell aux = list.first;
+        while(aux!=null){
+            Cell c = new Cell(aux.getValue());
+            insertOrdered(c);
+            aux = aux.next;
+        }
+    }
+
+    public ListaSE intersection(ListaSE list){
+        ListaSE list_res = new ListaSE();
+        Cell aux = list.first;
+        while(aux!=null){
+            if(exists(aux.getValue())){
+                Cell a = search(aux.getValue());
+                list_res.insertAtStart(a);
+            }
+            aux = aux.getNext();
+        }
+
+        return list_res;
     }
     
 }

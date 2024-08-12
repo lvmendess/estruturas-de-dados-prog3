@@ -3,87 +3,49 @@ public class Main{
     public static void main(String[] args) {
         ListaSE list1 = new ListaSE();
 
-        Cell n = new Cell(10);
-        list1.insertAtStart(n);
+
+        /*questao 1
+        int[] a = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        for(int i=0; i<a.length; i++){
+            Cell b = new Cell(a[i]);
+            list1.insertAtStart(b);
+        }
 
         list1.print();
 
-        System.out.println();
+        int c = 0;
+        while(c<2){
+            list1.removeAtEnd();
+            c++;
+        }
 
-        n = new Cell(20);
-        list1.insertAtEnd(n);
+        list1.print();*/
 
-        list1.print();
+        int[] a = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-        System.out.println();
+        for(int i=0; i<a.length; i++){
+            Cell b = new Cell(a[i]);
+            list1.insertAtStart(b);
+        }
 
-        n = new Cell(5);
-        list1.insertOrdered(n);
+        ListaSE list2 = new ListaSE();
 
-        list1.print();
+        int[] d = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-        System.out.println();
+        for(int i=0; i<d.length; i++){
+            Cell e = new Cell(d[i]);
+            list2.insertAtStart(e);
+        }
 
-        n = new Cell(15);
-        list1.insertOrdered(n);
+        //list1.assemble(list2);
 
-        list1.print();
+        //list1.assembleOrdered(list2); //não esta ordenado naosei pq
 
-        System.out.println();
+        list1.intersection(list2).print();
 
-        n = new Cell(25);
-        list1.insertOrdered(n);
+        //list1.print();
 
-        list1.print();
-
-        System.out.println();
-
-        n = new Cell(30);
-        list1.insertOrdered(n);
-
-        list1.print();
-
-        System.out.println();
-
-        n = new Cell(9);
-        list1.insertOrdered(n);
-
-        list1.print();
-
-        System.out.println();
-
-        n = new Cell(17);
-        list1.insertOrdered(n);
-
-        list1.print();
-
-        System.out.println();
-
-        n = new Cell(36);
-        list1.insertOrdered(n);
-
-        list1.print();
-
-        System.out.println();
-
-        n = new Cell(26);
-        list1.insertOrdered(n);
-
-        list1.print();
-
-        System.out.println();
-
-        n = new Cell(26);
-        list1.insertOrdered(n);
-
-        list1.print();
-
-        System.out.println();
-
-        n = new Cell(1);
-        list1.insertOrdered(n);
-
-        list1.print();
     }
 
 }
