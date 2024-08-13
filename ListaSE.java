@@ -9,6 +9,19 @@ public class ListaSE{
         return first==null;
     }
 
+    public int size(){
+        int size = 0;
+        if(empty()){return 0;}
+        else{
+            Cell aux = first;
+            while(aux!=null){
+                size++;
+                aux = aux.getNext();
+            }
+            return size;
+        }
+    }
+
     public void insertAtStart(Cell c){
         c.setNext(first);
         first = c;
@@ -143,7 +156,7 @@ public class ListaSE{
         }
     }
 
-    public void assemble(ListaSE list){ //loop infinito porque naosei
+    public void assemble(ListaSE list){
         Cell aux = list.first;
         while(aux!=null){
             Cell c = new Cell(aux.getValue());
@@ -152,7 +165,7 @@ public class ListaSE{
         }
     }
 
-    public void assembleOrdered(ListaSE list){ //loop infinito porque naosei
+    public void assembleOrdered(ListaSE list){
         Cell aux = list.first;
         while(aux!=null){
             Cell c = new Cell(aux.getValue());
@@ -173,6 +186,26 @@ public class ListaSE{
         }
 
         return list_res;
+    }
+
+    public void removeByPosition(long position){
+        if(empty()){System.out.println("empty list");}
+        else{
+            if(position==1||position==0){
+                removeAtStart();
+            }else{
+                long cont = 1;
+                Cell aux = first;
+                while(cont<=position){
+                    aux = aux.getNext();
+                    cont++;
+                    if(aux==null){
+                        aux = first;
+                    }
+                }
+                removeSpecific(aux.getValue());
+            }
+        }
     }
     
 }

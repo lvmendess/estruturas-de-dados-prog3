@@ -7,6 +7,17 @@ public class ListSEC{
         this.head = head;
     }
 
+    public void print(){
+        if(empty()){System.out.println("empty list");}
+        else{
+            Cell aux = head.getNext();
+            while(aux!=head){
+                System.out.println(aux.getValue());
+                aux = aux.getNext();
+            }
+        }
+    }
+
     public void insertAtStart(Cell c){
         c.setNext(head.getNext());
         head.setNext(c);
@@ -65,6 +76,61 @@ public class ListSEC{
                 aux = aux.getNext();
             }
             return aux;
+        }
+    }
+
+    public int size(){
+        if(empty()){return 0;}
+        else{
+            int size = 0;
+            Cell aux = head;
+            while(aux.getNext()!=head){
+                size++;
+                aux = aux.getNext();
+            }
+            return size;
+        }
+    }
+
+    public boolean exists(int v) {
+        if(empty()){return false;}
+        else{
+            Cell aux = head;
+            while((aux.getNext()!=head && aux.getValue()!=v)){
+                aux = aux.getNext();
+            }
+            if(aux.getValue()==v){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public void removeSpecific(int v){
+        if (empty()) {System.out.println("empty list");}
+        else{
+            Cell aux = head;
+            if(exists(v)){
+                while(aux.getNext()!=head && aux.getNext().getValue()!=v){
+                    aux = aux.getNext();
+                }
+                aux.setNext(aux.getNext().getNext());
+            }else{
+                System.out.println("404: cell not found");
+            }
+        }
+    }
+
+    public void assemble(ListSEC list){
+        if(list.empty()){System.out.println("empty list");}
+        else{
+            Cell aux = list.head.getNext();
+            while(aux.getNext()!=head){
+                insertAtEnd(aux);
+                aux = aux.getNext();
+            }
+            print();
         }
     }
     
