@@ -11,6 +11,8 @@ public class BinaryTree {
         this.root = root;
     }
 
+    public boolean empty(){return root==null;}
+
     private Node InsertNew(Node n, Node current){
         if(current == null){return n;}
         if(current.getValue() > n.getValue()){
@@ -32,6 +34,37 @@ public class BinaryTree {
             preOrder(n.getRight());
         }
     }
+
+    private Node find(Node current, int v){
+        if(current==null){return null;}
+        if(current.getRight()!=null){
+            if((current.getRight().getValue()) == v){
+                return current;
+            }
+        }
+        if(current.getLeft()!=null){
+            if((current.getLeft().getValue()) == v){
+                return current;
+            }
+        }
+        if(current.getValue()>v){
+            return find(current.getRight(), v);
+        }else{
+            return find(current.getLeft(), v);
+        }
+
+    }
+
+    /*private boolean remove(int v){
+        if(empty()){return false;}
+        else{
+            Node father;
+            Node son;
+            if(getRoot().getValue() != v){
+                father = 
+            }
+        }
+    }*/
 
     void InOrder(Node n){}
 }
