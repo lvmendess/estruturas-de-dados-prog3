@@ -57,7 +57,7 @@ public class NewBinaryTree {
         return find(root, v);
     }
 
-    boolean remove(int v){
+    /*boolean remove(int v){
         if(root==null){return false;}
         else{
             Node p, n;
@@ -66,7 +66,7 @@ public class NewBinaryTree {
                 n = root;
             }
         }
-    }
+    }*/
 
     void preOrder(Node n){
         if(n!=null){
