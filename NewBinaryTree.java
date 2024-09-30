@@ -57,16 +57,64 @@ public class NewBinaryTree {
         return find(root, v);
     }
 
-    /*boolean remove(int v){
-        if(root==null){return false;}
-        else{
-            Node p, n;
-            if(root.getValue()==v){
-                p = root;
-                n = root;
-            }
+    private Node remove(Node root, int v) {
+        if (root == null) {
+            return root;
         }
-    }*/
+        if (root.getValue() > v) {
+            root.setLeft(remove(root.getLeft(), v));
+        } else if (root.getValue() < v) {
+            root.setRight(remove(root.getRight(), v));
+        } else {
+            if (root.getRight() == null) {
+                return root.getRight();
+            }
+            if (root.getRight() == null) {
+                return root.getRight();
+            }
+            Node sucessor = getSucessor(root);
+            root.setValue(sucessor.getValue());
+            root.setRight(remove(root.getRight(), sucessor.getValue()));
+        }
+        return root;
+    }
+
+    public void removeNode(int v) {
+        remove(root, v);
+    }
+
+    private int count(Node n){
+        if(n == null){return 0;}
+        else{
+            return 1 + count(n.getLeft()) + count(n.getRight());
+        }
+    }
+
+    void countNodes(){
+        System.out.println(count(root));
+    }
+
+    private int countNonLeafs(Node n){
+        if(n == null){
+            return 0;
+        }
+        if(n.getLeft()==null && n.getRight()==null){
+            return 0;
+        }
+        return 1 + countNonLeafs(n.getLeft()) + countNonLeafs(n.getRight());
+    }
+
+    public int countNonLeafNodes(){
+        return countNonLeafs(root);
+    }
+
+    private Node getSucessor(Node atual) {
+        atual = atual.getRight();
+        while (atual != null && atual.getLeft() != null) {
+            atual = atual.getLeft();
+        }
+        return atual;
+    }
 
     void preOrder(Node n){
         if(n!=null){
