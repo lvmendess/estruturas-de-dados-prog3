@@ -35,6 +35,22 @@ public class BinaryTree {
         }
     }
 
+    void inOrder(Node n){
+        if(n!=null){
+            inOrder(n.getLeft());
+            System.out.println(n.getValue()+"\n");
+            inOrder(n.getRight());
+        }
+    }
+
+    void postOrder(Node n){
+        if(n!=null){
+            postOrder(n.getLeft());
+            postOrder(n.getRight());
+            System.out.println(n.getValue()+"\n");
+        }
+    }
+
     private Node find(Node current, int v){
         if(current==null){return null;}
         if(current.getRight()!=null){
@@ -52,19 +68,42 @@ public class BinaryTree {
         }else{
             return find(current.getLeft(), v);
         }
-
     }
 
-    /*private boolean remove(int v){
-        if(empty()){return false;}
+    private int count(Node n){
+        if(n == null){return 0;}
         else{
-            Node father;
-            Node son;
-            if(getRoot().getValue() != v){
-                father = 
-            }
+            return 1 + count(n.getLeft()) + count(n.getRight());
         }
-    }*/
+    }
 
-    void InOrder(Node n){}
+    void countNodes(){
+        System.out.println(count(root));
+    }
+
+    public void printPreOrder(){
+        preOrder(root);
+    }
+
+    public void printInOrder(){
+        inOrder(root);
+    }
+
+    public void printPostOrder(){
+        postOrder(root);
+    }
+
+    private int countNonLeafs(Node n){
+        if(n == null || n.getLeft()==null || n.getRight()==null){
+            return 0;
+        }
+        else{
+            return 1 + countNonLeafs(n.getLeft()) + countNonLeafs(n.getRight());
+        }
+    }
+
+    public int countNonLeafNodes(){
+        return countNonLeafs(root);
+    }
+
 }
