@@ -1,0 +1,40 @@
+private Node remove(Node root, int v) {
+        if (root == null) {
+            return null;  // Base case: nothing to remove
+        }
+        
+        // Navigate to the correct node
+        if (root.getValue() > v) {
+            root.setLeft(remove(root.getLeft(), v));  // Go left
+        } else if (root.getValue() < v) {
+            root.setRight(remove(root.getRight(), v)); // Go right
+        } else {
+            // Found the node to be deleted
+            if (root.getRight() == null && root.getLeft() == null) {
+                // Case: Node is a leaf (no children)
+                return null;  // Simply remove the node
+            }
+            if (root.getLeft() != null && root.getRight() == null) {
+                // Case: Node has only a left child
+                return root.getLeft();  // Replace the node with its left child
+            }
+            if (root.getRight() == null) {
+                // Case: Node has no right child but has a left child
+                return root.getLeft();  // Replace with left child
+            }
+            if (root.getLeft() == null) {
+                // Case: Node has only a right child
+                return root.getRight();  // Replace with right child
+            }
+    
+            // Node with two children: find the inorder successor (smallest in the right subtree)
+            Node successor = getSucessor(root);
+            root.setValue(successor.getValue());  // Copy the successor's value to the root
+            root.setRight(remove(root.getRight(), successor.getValue()));  // Remove the successor
+        }
+        return root;  // Return the potentially modified root
+    }
+    
+    public void removeNode(int v) {
+        root = remove(root, v);  // Update root if necessary
+    }

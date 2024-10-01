@@ -57,8 +57,8 @@ public class NewBinaryTree {
         return find(root, v);
     }
 
-    private Node remove(Node root, int v) {
-        if (root == null) {
+    /*private Node remove(Node root, int v) {
+        if (root == null || findNode(v) == null) {
             return root;
         }
         if (root.getValue() > v) {
@@ -69,8 +69,8 @@ public class NewBinaryTree {
             if (root.getRight() == null) {
                 return root.getRight();
             }
-            if (root.getRight() == null) {
-                return root.getRight();
+            if (root.getLeft() == null) {
+                return root.getLeft();
             }
             Node sucessor = getSucessor(root);
             root.setValue(sucessor.getValue());
@@ -81,7 +81,49 @@ public class NewBinaryTree {
 
     public void removeNode(int v) {
         remove(root, v);
+    }*/
+
+    private Node remove(Node root, int v) {
+        if (root == null) {
+            return null;  // Base case: nothing to remove
+        }
+        
+        // Navigate to the correct node
+        if (root.getValue() > v) {
+            root.setLeft(remove(root.getLeft(), v));  // Go left
+        } else if (root.getValue() < v) {
+            root.setRight(remove(root.getRight(), v)); // Go right
+        } else {
+            // Found the node to be deleted
+            if (root.getRight() == null && root.getLeft() == null) {
+                // Case: Node is a leaf (no children)
+                return null;  // Simply remove the node
+            }
+            if (root.getLeft() != null && root.getRight() == null) {
+                // Case: Node has only a left child
+                return root.getLeft();  // Replace the node with its left child
+            }
+            if (root.getRight() == null) {
+                // Case: Node has no right child but has a left child
+                return root.getLeft();  // Replace with left child
+            }
+            if (root.getLeft() == null) {
+                // Case: Node has only a right child
+                return root.getRight();  // Replace with right child
+            }
+    
+            // Node with two children: find the inorder successor (smallest in the right subtree)
+            Node successor = getSucessor(root);
+            root.setValue(successor.getValue());  // Copy the successor's value to the root
+            root.setRight(remove(root.getRight(), successor.getValue()));  // Remove the successor
+        }
+        return root;  // Return the potentially modified root
     }
+    
+    public void removeNode(int v) {
+        root = remove(root, v);  // Update root if necessary
+    }
+    
 
     private int count(Node n){
         if(n == null){return 0;}
@@ -108,12 +150,63 @@ public class NewBinaryTree {
         return countNonLeafs(root);
     }
 
-    private Node getSucessor(Node atual) {
-        atual = atual.getRight();
-        while (atual != null && atual.getLeft() != null) {
-            atual = atual.getLeft();
+    private int countLeafs(Node n){
+        if(n == null){
+            return 0;
         }
-        return atual;
+        if(n.getLeft()==null && n.getRight()==null){
+            return 1;
+        }
+        return 0 + countLeafs(n.getLeft()) + countLeafs(n.getRight());
+    }
+
+    public int countLeafNodes(){
+        return countLeafs(root);
+    }
+
+    public int height(Node root){
+        int r = 0, l = 0;
+        if(root==null){
+            return 0;
+        }else{
+            if(root.getRight()!=null){
+                r = height(root.getRight());
+            }
+            if(root.getLeft()!=null){
+                l = height(root.getLeft());
+            }
+            if(l>r){
+                return l + 1;
+            }else{
+                return r + 1;
+            }
+        }
+    }
+
+    private Node getSucessor(Node current) {
+        current = current.getRight();
+        while (current != null && current.getLeft() != null) {
+            current = current.getLeft();
+        }
+        return current;
+    }
+
+    private void removeEven(Node n){
+        if(n!=null){
+            if(n.getValue()%2==0){
+                removeNode(n.getValue());
+            }
+            if(n.getLeft()!=null){
+                removeEven(n.getLeft());
+            }
+            if(n.getRight()!=null){
+                removeEven(n.getRight());
+            }
+        }
+    }
+
+    public void removeAllEven(){
+        removeEven(root);
     }
 
     void preOrder(Node n){
@@ -152,5 +245,7 @@ public class NewBinaryTree {
         postOrder(root);
     }
 
-    
+    public Node getRoot() {
+        return root;
+    }
 }

@@ -9,14 +9,9 @@ public class Main{
             b.insert(n);
         }
 
-        //b.printInOrder();
+        b.removeAllEven();
         b.countNodes();
-        System.out.println(b.findNode(10).getValue());
-        b.removeNode(10);
-        System.out.println();
-        b.countNodes();
-        System.out.println();
-        System.out.println(b.countNonLeafNodes());
+        b.printInOrder();
     }
 
 }
