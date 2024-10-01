@@ -1,7 +1,0 @@
-private Node getSucessor(Node current) {
-        current = current.getRight();
-        while (current != null && current.getLeft() != null) {
-            current = current.getLeft();
-        }
-        return current;
-    }

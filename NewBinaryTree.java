@@ -57,7 +57,7 @@ public class NewBinaryTree {
         return find(root, v);
     }
 
-    /*private Node remove(Node root, int v) {
+    private Node remove(Node root, int v) {
         if (root == null || findNode(v) == null) {
             return root;
         }
@@ -81,61 +81,24 @@ public class NewBinaryTree {
 
     public void removeNode(int v) {
         remove(root, v);
-    }*/
-
-    private Node remove(Node root, int v) {
-        if (root == null) {
-            return null;  // Base case: nothing to remove
-        }
-        
-        // Navigate to the correct node
-        if (root.getValue() > v) {
-            root.setLeft(remove(root.getLeft(), v));  // Go left
-        } else if (root.getValue() < v) {
-            root.setRight(remove(root.getRight(), v)); // Go right
-        } else {
-            // Found the node to be deleted
-            if (root.getRight() == null && root.getLeft() == null) {
-                // Case: Node is a leaf (no children)
-                return null;  // Simply remove the node
-            }
-            if (root.getLeft() != null && root.getRight() == null) {
-                // Case: Node has only a left child
-                return root.getLeft();  // Replace the node with its left child
-            }
-            if (root.getRight() == null) {
-                // Case: Node has no right child but has a left child
-                return root.getLeft();  // Replace with left child
-            }
-            if (root.getLeft() == null) {
-                // Case: Node has only a right child
-                return root.getRight();  // Replace with right child
-            }
-    
-            // Node with two children: find the inorder successor (smallest in the right subtree)
-            Node successor = getSucessor(root);
-            root.setValue(successor.getValue());  // Copy the successor's value to the root
-            root.setRight(remove(root.getRight(), successor.getValue()));  // Remove the successor
-        }
-        return root;  // Return the potentially modified root
     }
     
-    public void removeNode(int v) {
-        root = remove(root, v);  // Update root if necessary
-    }
-    
-
+    /**
+     * 1. Escreva um método que conta o número de nós de uma árvore binária
+     */
     private int count(Node n){
         if(n == null){return 0;}
         else{
             return 1 + count(n.getLeft()) + count(n.getRight());
         }
     }
-
     void countNodes(){
         System.out.println(count(root));
     }
 
+    /*
+     * 2. Escreva um método que conta o número de nós não-folha de uma árvore binária.
+     */
     private int countNonLeafs(Node n){
         if(n == null){
             return 0;
@@ -145,11 +108,13 @@ public class NewBinaryTree {
         }
         return 1 + countNonLeafs(n.getLeft()) + countNonLeafs(n.getRight());
     }
-
     public int countNonLeafNodes(){
         return countNonLeafs(root);
     }
 
+    /**
+     * 3.Escreva um método que conta o número de nós folhas de uma árvore binária.
+     */
     private int countLeafs(Node n){
         if(n == null){
             return 0;
@@ -159,11 +124,13 @@ public class NewBinaryTree {
         }
         return 0 + countLeafs(n.getLeft()) + countLeafs(n.getRight());
     }
-
     public int countLeafNodes(){
         return countLeafs(root);
     }
 
+    /**
+     * 4.Escreva um método que calcula a altura de uma árvore binária
+     */
     public int height(Node root){
         int r = 0, l = 0;
         if(root==null){
@@ -191,6 +158,9 @@ public class NewBinaryTree {
         return current;
     }
 
+    /**
+     * 5.Escreva um método que remove todos os elementos pares da árvore.
+     */
     private void removeEven(Node n){
         if(n!=null){
             if(n.getValue()%2==0){
@@ -204,9 +174,21 @@ public class NewBinaryTree {
             }
         }
     }
-
     public void removeAllEven(){
         removeEven(root);
+    }
+
+    /**
+     * 6. Escreva um método que faz um espelhamento da árvore.
+     */
+    public void mirroring(Node e){
+        if (e != null) {
+            Node t = e.getLeft();
+            e.setLeft(e.getRight());
+            e.setRight(t);
+            mirroring(e.getLeft());
+            mirroring(e.getRight());
+        }
     }
 
     void preOrder(Node n){
