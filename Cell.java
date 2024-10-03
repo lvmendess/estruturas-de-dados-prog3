@@ -21,6 +21,4 @@ public class Cell{
     public void setNext(){
         this.next = null;
     }
-
-    
 }

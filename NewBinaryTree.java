@@ -58,7 +58,7 @@ public class NewBinaryTree {
     }
 
     private Node remove(Node root, int v) {
-        if (root == null || findNode(v) == null) {
+        if (root == null || findNode(v)==null) {
             return root;
         }
         if (root.getValue() > v) {
@@ -188,6 +188,67 @@ public class NewBinaryTree {
             e.setRight(t);
             mirroring(e.getLeft());
             mirroring(e.getRight());
+        }
+    }
+
+    /**
+     * 7. Escreva uma função não-recursiva para realizar os 3 tipos de caminhamento pela ABB
+     * a)em ordem
+     */
+    public void stackInOrder(Node n){
+        stack2 s = new stack2();
+        Node p = root;
+
+        while(p!=null || !s.empty()){
+            if(p!=null){
+                Cell3 c = new Cell3(p);
+                s.toStack(c);
+                p = p.getLeft();
+            }else{
+                p = s.unstack().getNode();
+                System.out.println(p.getValue());
+                p = p.getRight();
+            }
+        }
+    }
+
+    /*b)pós ordem */
+    public void stackPostOrder(Node root) {
+        stack2 s = new stack2();
+        Node p = root;
+        Node lastSeen = null;
+        while (p != null || !s.empty()) {
+            if (p != null) {
+                Cell3 c = new Cell3(p); 
+                s.toStack(c);
+                p = p.getLeft();
+            } else {
+                Node peek = s.getTop().getNode();
+                if (peek.getRight() != null && lastSeen != peek.getRight()) {
+                    p = peek.getRight();
+                } else {
+                    System.out.println(peek.getValue());
+                    lastSeen = s.unstack().getNode();
+                }
+            }
+        }
+    }
+
+    /*c)pré ordem */
+    public void stackPreOrder(Node n){
+        stack2 s = new stack2();
+        Node p = root;
+
+        while(p!=null || !s.empty()){
+            if(p!=null){
+                System.out.println(p.getValue());
+                Cell3 c = new Cell3(p); 
+                s.toStack(c);
+                p = p.getLeft();
+            }else{
+                p = s.unstack().getNode();
+                p = p.getRight();
+            }
         }
     }
 
